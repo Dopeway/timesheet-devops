@@ -11,11 +11,11 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
+
   app-timesheet:
     depends_on:
       - mysqldb
-    image: mouradhassini/achat-image:1.0.0
-    #build : ./
+    image: mehdibham/alpine:1.0.0
     restart: on-failure
     ports:
       - 8089:8089
@@ -30,5 +30,32 @@ services:
     stdin_open: true
     tty: true
 
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: otel-collector
+    volumes:
+      - ./otel-config.yaml:/etc/otel/config.yaml
+    command: [ "--config=/etc/otel/config.yaml" ]
+    ports:
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+      - "8889:8889"   # Prometheus exporter port
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
 volumes:
-  db :
+  db:
