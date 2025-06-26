@@ -86,7 +86,7 @@
         <archive>
           <manifest>
             <addClasspath>true</addClasspath>
-            <mainClass>tn.esprit.spring.services.Main</mainClass>
+            <mainClass>tn.esprit.spring.TimesheetDevopsApplication</mainClass>
           </manifest>
         </archive>
       </configuration>
