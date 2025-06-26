@@ -10,3 +10,8 @@ scrape_configs:
     metrics_path: /prometheus
     static_configs:
       - targets: ['172.17.0.1:8080']
+
+  - job_name: 'app-timesheet'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['app-timesheet:8089']
