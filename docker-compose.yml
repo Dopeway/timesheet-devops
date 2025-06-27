@@ -57,6 +57,14 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      # ---- SMTP via Gmail ----
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=skireofficial@gmail.com
+      - GF_SMTP_PASSWORD=GGmEHDIZz16..
+      - GF_SMTP_FROM_ADDRESS=skireofficial@gmail.com
+      - GF_SMTP_SKIP_VERIFY=true    # skip TLS cert verify (optionnel)
+      - GF_SMTP_TLS=true            # utilise STARTTLS
     volumes:
       - grafana-data:/var/lib/grafana
 
